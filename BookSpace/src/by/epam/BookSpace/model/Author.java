@@ -4,7 +4,7 @@ public class Author {
     private String name;
     private String surname;
     private int rating;
-    private  String description;
+    private String description;
     private int id;
 
     public Author() {
@@ -58,12 +58,12 @@ public class Author {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Author{ ");
-        sb.append("name= ").append(name).append('\'');
-        sb.append(", surname= ").append(surname).append('\'');
-        sb.append(", rating= ").append(rating);
-        sb.append(", description= ").append(description).append('\'');
-        sb.append(", id= ").append(id);
-        sb.append('}');
+        sb.append("name=").append(name);
+        sb.append(", surname=").append(surname);
+        sb.append(", rating=").append(rating);
+        sb.append(", description=").append(description);
+        sb.append(", id=").append(id);
+        sb.append(" }");
         return sb.toString();
     }
 }
