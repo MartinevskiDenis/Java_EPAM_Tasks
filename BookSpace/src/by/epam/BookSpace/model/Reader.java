@@ -1,6 +1,7 @@
 package by.epam.BookSpace.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Reader extends User {
     private boolean isAuthor;
@@ -58,5 +59,22 @@ public class Reader extends User {
         sb.append(", deferredBooks=").append(deferredBooks);
         sb.append(" }");
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Reader reader = (Reader) o;
+        return isAuthor == reader.isAuthor &&
+                finishedBooks.equals(reader.finishedBooks) &&
+                startedBooks.equals(reader.startedBooks) &&
+                deferredBooks.equals(reader.deferredBooks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), isAuthor, finishedBooks, startedBooks, deferredBooks);
     }
 }

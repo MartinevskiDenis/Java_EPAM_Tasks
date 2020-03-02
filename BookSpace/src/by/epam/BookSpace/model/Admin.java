@@ -1,5 +1,7 @@
 package by.epam.BookSpace.model;
 
+import java.util.Objects;
+
 public class Admin extends User {
     private final boolean isAdmin = true;
 
@@ -18,5 +20,19 @@ public class Admin extends User {
         sb.append("isAdmin=").append(isAdmin);
         sb.append(" }");
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Admin admin = (Admin) o;
+        return isAdmin == admin.isAdmin;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), isAdmin);
     }
 }

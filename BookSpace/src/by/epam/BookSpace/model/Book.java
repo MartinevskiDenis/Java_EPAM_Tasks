@@ -2,6 +2,7 @@ package by.epam.BookSpace.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class Book {
     private String name;
@@ -101,5 +102,25 @@ public class Book {
         sb.append(", id=").append(id);
         sb.append(" }");
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return authorID == book.authorID &&
+                seriesID == book.seriesID &&
+                cntSymbols == book.cntSymbols &&
+                id == book.id &&
+                name.equals(book.name) &&
+                genres.equals(book.genres) &&
+                releaseDate.equals(book.releaseDate) &&
+                discription.equals(book.discription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, authorID, seriesID, genres, releaseDate, cntSymbols, discription, id);
     }
 }
