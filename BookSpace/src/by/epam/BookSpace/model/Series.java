@@ -57,7 +57,7 @@ public class Series {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Series{");
+        final StringBuilder sb = new StringBuilder("Series{ ");
         sb.append("name=").append(name);
         sb.append(", description=").append(description);
         sb.append(", countBooks=").append(countBooks);
