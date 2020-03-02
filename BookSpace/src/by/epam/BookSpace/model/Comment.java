@@ -1,5 +1,7 @@
 package by.epam.BookSpace.model;
 
+import java.util.Objects;
+
 public class Comment {
     private String userLogin;
     private String text;
@@ -43,5 +45,20 @@ public class Comment {
         sb.append(", bookID=").append(bookID);
         sb.append(" }");
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return bookID == comment.bookID &&
+                userLogin.equals(comment.userLogin) &&
+                text.equals(comment.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userLogin, text, bookID);
     }
 }
