@@ -4,8 +4,8 @@ public class Series {
     private String name;
     private String description;
     private int countBooks;
-    private  int authorId;
-    private  int id;
+    private int authorId;
+    private int id;
 
     public Series() {
         this.name = "";
