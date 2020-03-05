@@ -27,10 +27,6 @@ public class Book {
 
     public String getName() {
         return name;
-        //misha vse sdelal
-        //misha vse sdelal
-        //misha vse sdelal
-        //misha vse sdelal
     }
 
     public void setName(String name) {
