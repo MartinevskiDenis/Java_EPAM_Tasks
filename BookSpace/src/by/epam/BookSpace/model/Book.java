@@ -117,6 +117,7 @@ public class Book {
                 genres.equals(book.genres) &&
                 releaseDate.equals(book.releaseDate) &&
                 discription.equals(book.discription);
+
     }
 
     @Override
