@@ -6,11 +6,13 @@ public class User {
     protected String login;
     protected String email;
     protected String nickname;
+    protected boolean isSubscriber;
 
     public User() {
         this.login = "";
         this.email = "";
         this.nickname = "";
+        this.isSubscriber = false;
     }
 
     public String getLogin() {
@@ -37,12 +39,21 @@ public class User {
         this.nickname = nickname;
     }
 
+    public boolean isSubscriber() {
+        return isSubscriber;
+    }
+
+    public void setSubscriber(boolean subscriber) {
+        isSubscriber = subscriber;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("User{ ");
         sb.append("login=").append(login);
         sb.append(", email=").append(email);
         sb.append(", nickname=").append(nickname);
+        sb.append(", isSubscriber=").append(isSubscriber);
         sb.append(" }");
         return sb.toString();
     }
@@ -52,13 +63,14 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return login.equals(user.login) &&
+        return isSubscriber == user.isSubscriber &&
+                login.equals(user.login) &&
                 email.equals(user.email) &&
                 nickname.equals(user.nickname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, email, nickname);
+        return Objects.hash(login, email, nickname, isSubscriber);
     }
 }

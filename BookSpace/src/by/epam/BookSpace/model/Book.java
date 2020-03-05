@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Book {
     private String name;
-    private int authorID;
+    ArrayList<Integer> authorsID;
     private int seriesID;
     private ArrayList<String> genres;
     private Date releaseDate;
@@ -16,7 +16,7 @@ public class Book {
 
     public Book() {
         this.name = "";
-        this.authorID = 0;
+        this.authorsID = new ArrayList<Integer>();
         this.seriesID = 0;
         this.genres = new ArrayList<String>();
         this.releaseDate = new Date(0, 0, 0);
@@ -33,12 +33,12 @@ public class Book {
         this.name = name;
     }
 
-    public int getAuthorID() {
-        return authorID;
+    public ArrayList<Integer> getAuthorsID() {
+        return authorsID;
     }
 
-    public void setAuthorID(int authorID) {
-        this.authorID = authorID;
+    public void setAuthorsID(ArrayList<Integer> authorsID) {
+        this.authorsID = new ArrayList<Integer>(authorsID);
     }
 
     public int getSeriesID() {
@@ -93,7 +93,7 @@ public class Book {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Book{ ");
         sb.append("name=").append(name);
-        sb.append(", authorID=").append(authorID);
+        sb.append(", authorsID=").append(authorsID);
         sb.append(", seriesID=").append(seriesID);
         sb.append(", genres=").append(genres);
         sb.append(", releaseDate=").append(releaseDate);
@@ -109,19 +109,18 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return authorID == book.authorID &&
-                seriesID == book.seriesID &&
+        return seriesID == book.seriesID &&
                 cntSymbols == book.cntSymbols &&
                 id == book.id &&
                 name.equals(book.name) &&
+                authorsID.equals(book.authorsID) &&
                 genres.equals(book.genres) &&
                 releaseDate.equals(book.releaseDate) &&
                 discription.equals(book.discription);
-
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, authorID, seriesID, genres, releaseDate, cntSymbols, discription, id);
+        return Objects.hash(name, authorsID, seriesID, genres, releaseDate, cntSymbols, discription, id);
     }
 }
