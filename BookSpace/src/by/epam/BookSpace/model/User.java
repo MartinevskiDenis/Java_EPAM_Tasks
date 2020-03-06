@@ -2,7 +2,7 @@ package by.epam.BookSpace.model;
 
 import java.util.Objects;
 
-public class User {
+public abstract class User {
     protected String login;
     protected String email;
     protected String nickname;
