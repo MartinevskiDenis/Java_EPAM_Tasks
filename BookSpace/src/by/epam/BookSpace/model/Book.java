@@ -1,10 +1,11 @@
 package by.epam.BookSpace.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-public class Book {
+public class Book implements Serializable {
     private String name;
     ArrayList<Integer> authorsID;
     private int seriesID;
