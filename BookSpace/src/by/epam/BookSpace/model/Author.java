@@ -1,8 +1,9 @@
 package by.epam.BookSpace.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Author {
+public class Author implements Serializable {
     private String name;
     private String surname;
     private int rating;

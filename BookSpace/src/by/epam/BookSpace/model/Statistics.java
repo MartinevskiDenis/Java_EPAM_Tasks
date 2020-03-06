@@ -1,8 +1,9 @@
 package by.epam.BookSpace.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Statistics {
+public class Statistics implements Serializable {
     private int numberViews;
     private int numberComments;
     private int numberLikes;

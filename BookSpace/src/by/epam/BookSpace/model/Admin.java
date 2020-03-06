@@ -1,8 +1,9 @@
 package by.epam.BookSpace.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Admin extends User {
+public class Admin extends User implements Serializable {
     private final boolean isAdmin = true;
 
     public Admin() {

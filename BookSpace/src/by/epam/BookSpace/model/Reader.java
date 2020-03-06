@@ -1,9 +1,10 @@
 package by.epam.BookSpace.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Reader extends User {
+public class Reader extends User implements Serializable {
     private boolean isAuthor;
     private ArrayList<Integer> finishedBooks;
     private ArrayList<Integer> startedBooks;

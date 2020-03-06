@@ -1,8 +1,9 @@
 package by.epam.BookSpace.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Comment {
+public class Comment implements Serializable {
     private String userLogin;
     private String text;
     private int bookID;

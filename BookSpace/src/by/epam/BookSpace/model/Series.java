@@ -1,8 +1,9 @@
 package by.epam.BookSpace.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Series {
+public class Series implements Serializable {
     private String name;
     private String description;
     private int countBooks;
