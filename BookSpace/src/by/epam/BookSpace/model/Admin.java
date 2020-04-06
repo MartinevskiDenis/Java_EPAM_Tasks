@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Admin extends User implements Serializable {
+    private static final long serialVersionUID = 607562200082274002L;
     private final boolean isAdmin = true;
 
     public Admin() {

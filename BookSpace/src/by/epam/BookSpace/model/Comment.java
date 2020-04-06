@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Comment implements Serializable {
+    private static final long serialVersionUID = 4870765461497603797L;
     private String userLogin;
     private String text;
     private int bookID;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Reader extends User implements Serializable {
+    private static final long serialVersionUID = -6346306515718030155L;
     private boolean isAuthor;
     private ArrayList<Integer> finishedBooks;
     private ArrayList<Integer> startedBooks;

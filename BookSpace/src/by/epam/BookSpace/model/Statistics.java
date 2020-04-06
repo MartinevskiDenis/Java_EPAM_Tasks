@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Statistics implements Serializable {
+    private static final long serialVersionUID = -7647459242435415931L;
     private int numberViews;
     private int numberComments;
     private int numberLikes;

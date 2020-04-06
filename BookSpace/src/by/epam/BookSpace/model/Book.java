@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Book implements Serializable {
+    private static final long serialVersionUID = -7694885217448990056L;
     private String name;
     ArrayList<Integer> authorsID;
     private int seriesID;
