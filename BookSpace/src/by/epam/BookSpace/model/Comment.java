@@ -7,13 +7,13 @@ public class Comment implements Serializable {
     private static final long serialVersionUID = 4870765461497603797L;
     private String userLogin;
     private String text;
-    private int bookID;
+    private int bookId;
     private int id;
 
     public Comment() {
         this.userLogin = "";
         this.text = "";
-        this.bookID = 0;
+        this.bookId = 0;
         this.id = 0;
     }
 
@@ -33,12 +33,12 @@ public class Comment implements Serializable {
         this.text = text;
     }
 
-    public int getBookID() {
-        return bookID;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setBookID(int bookID) {
-        this.bookID = bookID;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
     public int getId() {
@@ -54,7 +54,7 @@ public class Comment implements Serializable {
         final StringBuilder sb = new StringBuilder("Comment{ ");
         sb.append("userLogin=").append(userLogin);
         sb.append(", text=").append(text);
-        sb.append(", bookID=").append(bookID);
+        sb.append(", bookID=").append(bookId);
         sb.append(", id=").append(id);
         sb.append(" }");
         return sb.toString();
@@ -65,7 +65,7 @@ public class Comment implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Comment comment = (Comment) o;
-        return bookID == comment.bookID &&
+        return bookId == comment.bookId &&
                 id == comment.id &&
                 userLogin.equals(comment.userLogin) &&
                 text.equals(comment.text);
@@ -73,6 +73,6 @@ public class Comment implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userLogin, text, bookID, id);
+        return Objects.hash(userLogin, text, bookId, id);
     }
 }
