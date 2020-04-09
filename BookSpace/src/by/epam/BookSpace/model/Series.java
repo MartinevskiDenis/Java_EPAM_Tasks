@@ -2,6 +2,7 @@ package by.epam.BookSpace.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Series implements Serializable {
     private static final long serialVersionUID = 2539941859058766563L;
@@ -9,14 +10,14 @@ public class Series implements Serializable {
     private String description;
     private int countBooks;
     private int authorId;
-    private int id;
+    private UUID id;
 
     public Series() {
         this.name = "";
         this.description = "";
         this.countBooks = 0;
         this.authorId = 0;
-        this.id = 0;
+        this.id = UUID.randomUUID();
     }
 
     public String getName() {
@@ -51,11 +52,11 @@ public class Series implements Serializable {
         this.authorId = authorId;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

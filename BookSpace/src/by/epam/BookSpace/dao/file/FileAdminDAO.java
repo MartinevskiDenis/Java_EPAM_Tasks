@@ -27,20 +27,21 @@ public class FileAdminDAO extends DAO<Admin, String> {
         } catch (ClassNotFoundException e) {
             log.error(e);
         }
-        if (!items.contains(data)) {
-            items.add(data);
-            try {
-                ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path));
-                output.writeObject(items);
-                output.close();
-            } catch (IOException e) {
-                log.error(e);
+        for (Admin item : items) {
+            if (item.getLogin().equals(data.getLogin())) {
+                log.info("Error! This item already exists");
+                return false;
             }
-            return true;
-        } else {
-            log.info("Error! This item already exists");
-            return false;
         }
+        items.add(data);
+        try {
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path));
+            output.writeObject(items);
+            output.close();
+        } catch (IOException e) {
+            log.error(e);
+        }
+        return true;
     }
 
     @Override

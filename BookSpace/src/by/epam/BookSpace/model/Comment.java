@@ -2,19 +2,20 @@ package by.epam.BookSpace.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Comment implements Serializable {
     private static final long serialVersionUID = 4870765461497603797L;
     private String userLogin;
     private String text;
     private int bookId;
-    private int id;
+    private UUID id;
 
     public Comment() {
         this.userLogin = "";
         this.text = "";
         this.bookId = 0;
-        this.id = 0;
+        this.id = UUID.randomUUID();
     }
 
     public String getUserLogin() {
@@ -41,11 +42,11 @@ public class Comment implements Serializable {
         this.bookId = bookId;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

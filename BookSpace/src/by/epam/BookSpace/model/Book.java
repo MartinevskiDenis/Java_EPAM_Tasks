@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Book implements Serializable {
     private static final long serialVersionUID = -7694885217448990056L;
@@ -14,7 +15,7 @@ public class Book implements Serializable {
     private Date releaseDate;
     private int cntSymbols;
     private String discription;
-    private int id;
+    private UUID id;
 
     public Book() {
         this.name = "";
@@ -24,7 +25,7 @@ public class Book implements Serializable {
         this.releaseDate = new Date(0, 0, 0);
         this.cntSymbols = 0;
         this.discription = "";
-        this.id = 0;
+        this.id = UUID.randomUUID();
     }
 
     public String getName() {
@@ -83,11 +84,11 @@ public class Book implements Serializable {
         this.discription = discription;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

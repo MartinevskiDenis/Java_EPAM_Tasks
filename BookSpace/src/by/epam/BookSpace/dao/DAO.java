@@ -15,7 +15,7 @@ public abstract class DAO<T, K> {
     }
 
     public DAO(String path) {
-        this.path = (path == null) ? "" : path;
+        this.path = path;
     }
 
     public abstract boolean insert(T data);
