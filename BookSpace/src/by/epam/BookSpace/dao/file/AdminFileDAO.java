@@ -50,7 +50,7 @@ public class AdminFileDAO extends DAO<Admin, String> {
     public Optional<Admin> getById(String id) {
         ArrayList<Admin> items = this.getAll();
         for (Admin item : items) {
-            if (item.getLogin() == id) {
+            if (item.getLogin().equals(id)) {
                 log.info("Возвращен администратор с login=" + id);
                 return Optional.of(item);
             }
@@ -63,7 +63,7 @@ public class AdminFileDAO extends DAO<Admin, String> {
     public boolean update(String id, Admin data) {
         ArrayList<Admin> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getLogin() == id) {
+            if (items.get(i).getLogin().equals(id)) {
                 items.set(i, data);
                 try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
                     output.writeObject(items);
@@ -82,7 +82,7 @@ public class AdminFileDAO extends DAO<Admin, String> {
     public boolean delete(String id) {
         ArrayList<Admin> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getLogin() == id) {
+            if (items.get(i).getLogin().equals(id)) {
                 items.remove(i);
                 try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
                     output.writeObject(items);

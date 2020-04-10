@@ -50,7 +50,7 @@ public class ReaderFileDAO extends DAO<Reader, String> {
     public Optional<Reader> getById(String id) {
         ArrayList<Reader> items = this.getAll();
         for (Reader item : items) {
-            if (item.getLogin() == id) {
+            if (item.getLogin().equals(id)) {
                 log.info("Возвращен пользователь с login=" + id);
                 return Optional.of(item);
             }
@@ -63,7 +63,7 @@ public class ReaderFileDAO extends DAO<Reader, String> {
     public boolean update(String id, Reader data) {
         ArrayList<Reader> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getLogin() == id) {
+            if (items.get(i).getLogin().equals(id)) {
                 items.set(i, data);
                 try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
                     output.writeObject(items);
@@ -82,7 +82,7 @@ public class ReaderFileDAO extends DAO<Reader, String> {
     public boolean delete(String id) {
         ArrayList<Reader> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getLogin() == id) {
+            if (items.get(i).getLogin().equals(id)) {
                 items.remove(i);
                 try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
                     output.writeObject(items);

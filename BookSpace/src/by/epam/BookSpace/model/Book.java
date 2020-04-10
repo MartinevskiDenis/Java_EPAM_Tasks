@@ -9,8 +9,8 @@ import java.util.UUID;
 public class Book implements Serializable {
     private static final long serialVersionUID = -7694885217448990056L;
     private String name;
-    ArrayList<Integer> authorsID;
-    private int seriesID;
+    ArrayList<UUID> authorsID;
+    private UUID seriesID;
     private ArrayList<String> genres;
     private Date releaseDate;
     private int cntSymbols;
@@ -19,8 +19,8 @@ public class Book implements Serializable {
 
     public Book() {
         this.name = "";
-        this.authorsID = new ArrayList<Integer>();
-        this.seriesID = 0;
+        this.authorsID = new ArrayList<UUID>();
+        this.seriesID = UUID.fromString("");
         this.genres = new ArrayList<String>();
         this.releaseDate = new Date(0, 0, 0);
         this.cntSymbols = 0;
@@ -36,19 +36,19 @@ public class Book implements Serializable {
         this.name = name;
     }
 
-    public ArrayList<Integer> getAuthorsID() {
+    public ArrayList<UUID> getAuthorsID() {
         return authorsID;
     }
 
-    public void setAuthorsID(ArrayList<Integer> authorsID) {
-        this.authorsID = new ArrayList<Integer>(authorsID);
+    public void setAuthorsID(ArrayList<UUID> authorsID) {
+        this.authorsID = new ArrayList<UUID>(authorsID);
     }
 
-    public int getSeriesID() {
+    public UUID getSeriesID() {
         return seriesID;
     }
 
-    public void setSeriesID(int seriesID) {
+    public void setSeriesID(UUID seriesID) {
         this.seriesID = seriesID;
     }
 
