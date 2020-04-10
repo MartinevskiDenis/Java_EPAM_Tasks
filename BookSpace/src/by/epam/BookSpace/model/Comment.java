@@ -8,13 +8,13 @@ public class Comment implements Serializable {
     private static final long serialVersionUID = 4870765461497603797L;
     private String userLogin;
     private String text;
-    private int bookId;
+    private UUID bookId;
     private UUID id;
 
     public Comment() {
         this.userLogin = "";
         this.text = "";
-        this.bookId = 0;
+        this.bookId = UUID.fromString("");
         this.id = UUID.randomUUID();
     }
 
@@ -34,11 +34,11 @@ public class Comment implements Serializable {
         this.text = text;
     }
 
-    public int getBookId() {
+    public UUID getBookId() {
         return bookId;
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(UUID bookId) {
         this.bookId = bookId;
     }
 

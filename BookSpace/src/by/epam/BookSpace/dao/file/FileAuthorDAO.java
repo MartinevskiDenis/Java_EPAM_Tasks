@@ -5,141 +5,98 @@ import by.epam.BookSpace.model.Author;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.UUID;
 
-public class FileAuthorDAO extends DAO<Author, Integer> {
+public class FileAuthorDAO extends DAO<Author, UUID> {
     public FileAuthorDAO() {
         super();
     }
 
     public FileAuthorDAO(String path) {
         super(path);
-    }
-
-    @Override
-    public boolean insert(Author data) {
-        ArrayList<Author> items = new ArrayList<Author>();
-        try {
-            ObjectInputStream input = new ObjectInputStream(new FileInputStream(path));
-            items = (ArrayList<Author>) input.readObject();
-            input.close();
-        } catch (IOException e) {
-            log.error(e);
-        } catch (ClassNotFoundException e) {
-            log.error(e);
-        }
-        if (!items.contains(data)) {
-            items.add(data);
-            try {
-                ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path));
-                output.writeObject(items);
-                output.close();
-            } catch (IOException e) {
-                log.error(e);
-            }
-            return true;
-        } else {
-            log.info("Error! This item already exists");
-            return false;
-        }
-    }
-
-    @Override
-    public Author getById(Integer id) {
-        if (id == null) {
-            log.info("Error! Incorrect id");
-            return null;
-        }
-        ArrayList<Author> items = new ArrayList<Author>();
-        try {
-            ObjectInputStream input = new ObjectInputStream(new FileInputStream(path));
-            items = (ArrayList<Author>) input.readObject();
-            input.close();
-        } catch (IOException e) {
-            log.error(e);
-        } catch (ClassNotFoundException e) {
-            log.error(e);
-        }
-        for (Author item : items) {
-            if (item.getId() == id) {
-                return item;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public boolean update(Integer id, Author data) {
-        if ((id == null) || (data == null)) {
-            log.info("Error! Incorrect input");
-            return false;
-        }
-        ArrayList<Author> items = new ArrayList<Author>();
-        try {
-            ObjectInputStream input = new ObjectInputStream(new FileInputStream(path));
-            items = (ArrayList<Author>) input.readObject();
-            input.close();
-        } catch (IOException e) {
-            log.error(e);
-        } catch (ClassNotFoundException e) {
-            log.error(e);
-        }
-        for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getId() == id) {
-                items.set(i, data);
-                try {
-                    ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path));
-                    output.writeObject(items);
-                    output.close();
-                } catch (IOException e) {
-                    log.error(e);
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean delete(Author data) {
-        if (data == null) {
-            log.info("Error! Incorrect input");
-            return false;
-        }
-        ArrayList<Author> items = new ArrayList<Author>();
-        try {
-            ObjectInputStream input = new ObjectInputStream(new FileInputStream(path));
-            items = (ArrayList<Author>) input.readObject();
-            input.close();
-        } catch (IOException e) {
-            log.error(e);
-        } catch (ClassNotFoundException e) {
-            log.error(e);
-        }
-        if (items.remove(data)) {
-            try {
-                ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path));
-                output.writeObject(items);
-                output.close();
-            } catch (IOException e) {
-                log.error(e);
-            }
-            return true;
-        }
-        return false;
+        log.info("Создан объект для работы с FileAuthorDAO");
     }
 
     @Override
     public ArrayList<Author> getAll() {
         ArrayList<Author> items = new ArrayList<>();
-        try {
-            ObjectInputStream input = new ObjectInputStream(new FileInputStream(path));
+        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(path))) {
             items = (ArrayList<Author>) input.readObject();
-            input.close();
-        } catch (IOException e) {
-            log.error(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             log.error(e);
         }
+        log.info("Возвращен список авторов");
         return items;
+    }
+
+    @Override
+    public boolean insert(Author data) {
+        ArrayList<Author> items = this.getAll();
+        if (!items.contains(data)) {
+            items.add(data);
+            try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
+                output.writeObject(items);
+            } catch (IOException e) {
+                log.error(e);
+            }
+            log.info("Добавлен автор с id=" + data.getId().toString());
+            return true;
+        } else {
+            log.info("Автор уже существует");
+            return false;
+        }
+    }
+
+    @Override
+    public Optional<Author> getById(UUID id) {
+        ArrayList<Author> items = this.getAll();
+        for (Author item : items) {
+            if (item.getId() == id) {
+                log.info("Возвращен автор с id=" + id.toString());
+                return Optional.of(item);
+            }
+        }
+        log.info("Автор с id=" + id.toString() + " не найден");
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean update(UUID id, Author data) {
+        ArrayList<Author> items = this.getAll();
+        for (int i = 0; i < items.size(); ++i) {
+            if (items.get(i).getId() == id) {
+                items.set(i, data);
+                items.get(i).setId(id);
+                try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
+                    output.writeObject(items);
+                } catch (IOException e) {
+                    log.error(e);
+                }
+                log.info("Автор с id=" + id.toString() + " изменен");
+                return true;
+            }
+        }
+        log.info("Автор с id=" + id.toString() + " не найден");
+        return false;
+    }
+
+    @Override
+    public boolean delete(UUID id) {
+        ArrayList<Author> items = this.getAll();
+        for (int i = 0; i < items.size(); ++i) {
+            if (items.get(i).getId() == id) {
+                items.remove(i);
+                try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
+                    output.writeObject(items);
+                } catch (IOException e) {
+                    log.error(e);
+                }
+                log.info("Автор с id=" + id.toString() + " удален");
+                return true;
+            }
+        }
+        log.info("Автор с id=" + id.toString() + " не найден");
+        return false;
     }
 }

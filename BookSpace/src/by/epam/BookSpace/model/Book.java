@@ -14,7 +14,7 @@ public class Book implements Serializable {
     private ArrayList<String> genres;
     private Date releaseDate;
     private int cntSymbols;
-    private String discription;
+    private String description;
     private UUID id;
 
     public Book() {
@@ -24,7 +24,7 @@ public class Book implements Serializable {
         this.genres = new ArrayList<String>();
         this.releaseDate = new Date(0, 0, 0);
         this.cntSymbols = 0;
-        this.discription = "";
+        this.description = "";
         this.id = UUID.randomUUID();
     }
 
@@ -76,12 +76,12 @@ public class Book implements Serializable {
         this.cntSymbols = cntSymbols;
     }
 
-    public String getDiscription() {
-        return discription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDiscription(String discription) {
-        this.discription = discription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public UUID getId() {
@@ -101,7 +101,7 @@ public class Book implements Serializable {
         sb.append(", genres=").append(genres);
         sb.append(", releaseDate=").append(releaseDate);
         sb.append(", cntSymbols=").append(cntSymbols);
-        sb.append(", discription=").append(discription);
+        sb.append(", description=").append(description);
         sb.append(", id=").append(id);
         sb.append(" }");
         return sb.toString();
@@ -114,16 +114,15 @@ public class Book implements Serializable {
         Book book = (Book) o;
         return seriesID == book.seriesID &&
                 cntSymbols == book.cntSymbols &&
-                id == book.id &&
                 name.equals(book.name) &&
                 authorsID.equals(book.authorsID) &&
                 genres.equals(book.genres) &&
                 releaseDate.equals(book.releaseDate) &&
-                discription.equals(book.discription);
+                description.equals(book.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, authorsID, seriesID, genres, releaseDate, cntSymbols, discription, id);
+        return Objects.hash(name, authorsID, seriesID, genres, releaseDate, cntSymbols, description);
     }
 }

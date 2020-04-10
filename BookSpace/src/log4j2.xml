@@ -33,7 +33,11 @@
         </RollingFile>
     </Appenders>
     <Loggers>
+        <Logger name="Log_File" level="trace" additivity="false">
+                <AppenderRef ref="File1"/>
+        </Logger>
         <Root level = "debug">
+            <AppenderRef ref="FileRolling"/>
             <AppenderRef ref="Console" level="trace"/>
         </Root>
     </Loggers>

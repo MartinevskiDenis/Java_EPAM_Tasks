@@ -2,19 +2,20 @@ package by.epam.BookSpace.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Statistics implements Serializable {
     private static final long serialVersionUID = -7647459242435415931L;
     private int numberViews;
     private int numberComments;
     private int numberLikes;
-    private int bookId;
+    private UUID bookId;
 
     public Statistics() {
         this.numberViews = 0;
         this.numberComments = 0;
         this.numberLikes = 0;
-        this.bookId = 0;
+        this.bookId = UUID.fromString("");
     }
 
     public int getNumberViews() {
@@ -41,11 +42,11 @@ public class Statistics implements Serializable {
         this.numberLikes = numberLikes;
     }
 
-    public int getBookId() {
+    public UUID getBookId() {
         return bookId;
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(UUID bookId) {
         this.bookId = bookId;
     }
 

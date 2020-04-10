@@ -6,14 +6,16 @@ import by.epam.BookSpace.model.Statistics;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
-public class FileStatisticsDAO extends DAO<Statistics, Integer> {
+public class FileStatisticsDAO extends DAO<Statistics, UUID> {
     public FileStatisticsDAO() {
         super();
     }
 
     public FileStatisticsDAO(String path) {
         super(path);
+        log.info("Создан объект для работы с FileStatisticsDAO");
     }
 
     @Override
@@ -24,6 +26,7 @@ public class FileStatisticsDAO extends DAO<Statistics, Integer> {
         } catch (IOException | ClassNotFoundException e) {
             log.error(e);
         }
+        log.info("Возвращен список статистик книг");
         return items;
     }
 
@@ -37,43 +40,49 @@ public class FileStatisticsDAO extends DAO<Statistics, Integer> {
             } catch (IOException e) {
                 log.error(e);
             }
+            log.info("Добавлена статистика для книги с id=" + data.getBookId().toString());
             return true;
         } else {
-            log.info("Error! This item already exists");
+            log.info("Статистика для книги c id=" + data.getBookId().toString() + " уже существует");
             return false;
         }
     }
 
     @Override
-    public Optional<Statistics> getById(Integer id) {
+    public Optional<Statistics> getById(UUID id) {
         ArrayList<Statistics> items = this.getAll();
         for (Statistics item : items) {
             if (item.getBookId() == id) {
+                log.info("Возвращена статистика для книги с id=" + id.toString());
                 return Optional.of(item);
             }
         }
+        log.info("Статистика для книги с id=" + id.toString() + " не найдена");
         return Optional.empty();
     }
 
     @Override
-    public boolean update(Integer id, Statistics data) {
+    public boolean update(UUID id, Statistics data) {
         ArrayList<Statistics> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
             if (items.get(i).getBookId() == id) {
                 items.set(i, data);
+                items.get(i).setBookId(id);
                 try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
                     output.writeObject(items);
                 } catch (IOException e) {
                     log.error(e);
                 }
+                log.info("Статистика для книги с id=" + id.toString() + " изменена");
                 return true;
             }
         }
+        log.info("Статистика для книги с id=" + id.toString() + " не найдена");
         return false;
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(UUID id) {
         ArrayList<Statistics> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
             if (items.get(i).getBookId() == id) {
@@ -83,9 +92,11 @@ public class FileStatisticsDAO extends DAO<Statistics, Integer> {
                 } catch (IOException e) {
                     log.error(e);
                 }
+                log.info("Статистика для книги с id=" + id.toString() + " удалена");
                 return true;
             }
         }
+        log.info("Статистика для книги с id=" + id.toString() + " не найдена");
         return false;
     }
 }

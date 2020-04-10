@@ -9,14 +9,14 @@ public class Series implements Serializable {
     private String name;
     private String description;
     private int countBooks;
-    private int authorId;
+    private UUID authorId;
     private UUID id;
 
     public Series() {
         this.name = "";
         this.description = "";
         this.countBooks = 0;
-        this.authorId = 0;
+        this.authorId = UUID.fromString("");
         this.id = UUID.randomUUID();
     }
 
@@ -44,11 +44,11 @@ public class Series implements Serializable {
         this.countBooks = countBooks;
     }
 
-    public int getAuthorId() {
+    public UUID getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(int authorId) {
+    public void setAuthorId(UUID authorId) {
         this.authorId = authorId;
     }
 
@@ -79,13 +79,12 @@ public class Series implements Serializable {
         Series series = (Series) o;
         return countBooks == series.countBooks &&
                 authorId == series.authorId &&
-                id == series.id &&
                 name.equals(series.name) &&
                 description.equals(series.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, countBooks, authorId, id);
+        return Objects.hash(name, description, countBooks, authorId);
     }
 }
