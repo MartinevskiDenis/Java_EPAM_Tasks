@@ -6,6 +6,7 @@ public abstract class User {
     protected String login;
     protected String email;
     protected String nickname;
+    protected String password;
     protected boolean isSubscriber;
 
     public User() {
@@ -47,14 +48,23 @@ public abstract class User {
         isSubscriber = subscriber;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("User{ ");
+        final StringBuilder sb = new StringBuilder("");
         sb.append("login=").append(login);
         sb.append(", email=").append(email);
         sb.append(", nickname=").append(nickname);
+        sb.append(", password=").append(password);
         sb.append(", isSubscriber=").append(isSubscriber);
-        sb.append(" }");
+        sb.append('}');
         return sb.toString();
     }
 
@@ -66,11 +76,12 @@ public abstract class User {
         return isSubscriber == user.isSubscriber &&
                 login.equals(user.login) &&
                 email.equals(user.email) &&
-                nickname.equals(user.nickname);
+                nickname.equals(user.nickname) &&
+                password.equals(user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, email, nickname, isSubscriber);
+        return Objects.hash(login, email, nickname, password, isSubscriber);
     }
 }

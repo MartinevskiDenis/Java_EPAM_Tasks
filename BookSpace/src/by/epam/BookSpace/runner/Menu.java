@@ -9,4 +9,10 @@ public class Menu {
     public void start() {
 
     }
+
+    private void printMenuMain(){
+        System.out.println("1 - Регистрация");
+        System.out.println("2 - Вход");
+        System.out.println("0 - Выход");
+    }
 }
