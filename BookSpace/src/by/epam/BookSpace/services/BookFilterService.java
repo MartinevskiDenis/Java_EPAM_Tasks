@@ -21,6 +21,7 @@ public class BookFilterService {
                     }
                 }
             }
+            log.info("Возвращен список книг автора с id=" + authorId.toString());
         } else {
             log.info("Ошибка! В функцию передано значение null");
         }
@@ -38,6 +39,7 @@ public class BookFilterService {
                     }
                 }
             }
+            log.info("Возвращен список книг жанра " + genre);
         } else {
             log.info("Ошибка! В функцию передано значение null");
         }
@@ -52,6 +54,7 @@ public class BookFilterService {
                     books.add(book);
                 }
             }
+            log.info("Возвращен список книг серии с id=" + seriesId.toString());
         } else {
             log.info("Ошибка! В функцию передано значение null");
         }

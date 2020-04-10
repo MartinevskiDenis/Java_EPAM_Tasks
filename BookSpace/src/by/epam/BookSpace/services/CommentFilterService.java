@@ -18,6 +18,7 @@ public class CommentFilterService {
                     comments.add(comment);
                 }
             }
+            log.info("Возвращен список комментариев книги с id=" + bookId.toString());
         } else {
             log.info("Ошибка! В функцию передано значение null");
         }
