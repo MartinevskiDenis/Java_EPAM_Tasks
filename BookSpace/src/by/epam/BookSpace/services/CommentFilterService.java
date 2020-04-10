@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class CommentFilterService {
-    protected static final Logger log = LogManager.getLogger();
+    private static final Logger log = LogManager.getLogger();
 
     public ArrayList<Comment> getAllBookComments(ArrayList<Comment> allComments, UUID bookId) {
         ArrayList<Comment> comments = new ArrayList<>();

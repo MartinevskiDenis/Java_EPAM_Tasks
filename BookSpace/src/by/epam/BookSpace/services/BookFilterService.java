@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class BookFilterService {
-    protected static final Logger log = LogManager.getLogger();
+    private static final Logger log = LogManager.getLogger();
 
     public ArrayList<Book> getAllBooksAuthor(ArrayList<Book> allBooks, UUID authorId) {
         ArrayList<Book> books = new ArrayList<>();
