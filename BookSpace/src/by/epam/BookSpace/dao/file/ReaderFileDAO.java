@@ -7,12 +7,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class FileReaderDAO extends DAO<Reader, String> {
-    public FileReaderDAO() {
+public class ReaderFileDAO extends DAO<Reader, String> {
+    public ReaderFileDAO() {
         super();
     }
 
-    public FileReaderDAO(String path) {
+    public ReaderFileDAO(String path) {
         super(path);
         log.info("Создан объект для работы с FileReaderDAO");
     }
@@ -41,10 +41,9 @@ public class FileReaderDAO extends DAO<Reader, String> {
             }
             log.info("Добавлен пользователь с login=" + data.getLogin());
             return true;
-        } else {
-            log.info("Пользователь с login=" + data.getLogin() + " уже существует");
-            return false;
         }
+        log.info("Пользователь с login=" + data.getLogin() + " уже существует");
+        return false;
     }
 
     @Override

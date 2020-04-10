@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
-public class FileSeriesDAO extends DAO<Series, UUID> {
-    public FileSeriesDAO() {
+public class SeriesFileDAO extends DAO<Series, UUID> {
+    public SeriesFileDAO() {
         super();
     }
 
-    public FileSeriesDAO(String path) {
+    public SeriesFileDAO(String path) {
         super(path);
         log.info("Создан объект для работы с FileSeriesDAO");
     }
@@ -42,10 +42,9 @@ public class FileSeriesDAO extends DAO<Series, UUID> {
             }
             log.info("Добавлена серия книг с id=" + data.getId().toString());
             return true;
-        } else {
-            log.info("Серия книг уже существует");
-            return false;
         }
+        log.info("Серия книг уже существует");
+        return false;
     }
 
     @Override

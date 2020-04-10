@@ -5,31 +5,47 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
-public abstract class Service<T, K, D extends DAO<T, K>> {
+public abstract class Service<T, K> {
     protected static final Logger log = LogManager.getLogger();
-    protected D dao;
+    protected DAO<T, K> dao;
 
-    public Service() {};
+    public Service() {
+    }
 
     public ArrayList<T> getAll() {
         return this.dao.getAll();
     }
 
     public boolean insert(T data) {
-        return dao.insert(data);
+        if (data != null) {
+            return dao.insert(data);
+        }
+        log.info("Ошибка! В функцию передано значение null");
+        return false;
     }
 
-    public Optional<T> getById(K id){
-        return dao.getById(id);
+    public T getById(K id) {
+        if (id != null) {
+            return dao.getById(id).orElse(null);
+        }
+        log.info("Ошибка! В функцию передано значение null");
+        return null;
     }
 
-    public boolean update(K id, T data){
-        return dao.update(id, data);
+    public boolean update(K id, T data) {
+        if ((id != null) && (data != null)) {
+            return dao.update(id, data);
+        }
+        log.info("Ошибка! В функцию передано значение null");
+        return false;
     }
 
-    public boolean delete(K id){
-        return dao.delete(id);
+    public boolean delete(K id) {
+        if (id != null) {
+            return dao.delete(id);
+        }
+        log.info("Ошибка! В функцию передано значение null");
+        return false;
     }
 }

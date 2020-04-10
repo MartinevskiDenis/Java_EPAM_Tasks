@@ -7,12 +7,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class FileAdminDAO extends DAO<Admin, String> {
-    public FileAdminDAO() {
+public class AdminFileDAO extends DAO<Admin, String> {
+    public AdminFileDAO() {
         super();
     }
 
-    public FileAdminDAO(String path) {
+    public AdminFileDAO(String path) {
         super(path);
         log.info("Создан объект для работы с FileAdminDAO");
     }
@@ -41,10 +41,9 @@ public class FileAdminDAO extends DAO<Admin, String> {
             }
             log.info("Добавлен администратор с login=" + data.getLogin());
             return true;
-        } else {
-            log.info("Администратор с login=" + data.getLogin() + " уже существует");
-            return false;
         }
+        log.info("Администратор с login=" + data.getLogin() + " уже существует");
+        return false;
     }
 
     @Override

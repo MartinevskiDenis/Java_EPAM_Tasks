@@ -1,38 +1,38 @@
 package by.epam.BookSpace.dao.file;
 
 import by.epam.BookSpace.dao.DAO;
-import by.epam.BookSpace.model.Comment;
+import by.epam.BookSpace.model.Book;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
-public class FileCommentDAO extends DAO<Comment, UUID> {
-    public FileCommentDAO() {
+public class BookFileDAO extends DAO<Book, UUID> {
+    public BookFileDAO() {
         super();
     }
 
-    public FileCommentDAO(String path) {
+    public BookFileDAO(String path) {
         super(path);
-        log.info("Создан объект для работы с FileCommentDAO");
+        log.info("Создан объект для работы с FileBookDAO");
     }
 
     @Override
-    public ArrayList<Comment> getAll() {
-        ArrayList<Comment> items = new ArrayList<>();
+    public ArrayList<Book> getAll() {
+        ArrayList<Book> items = new ArrayList<>();
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(path))) {
-            items = (ArrayList<Comment>) input.readObject();
+            items = (ArrayList<Book>) input.readObject();
         } catch (IOException | ClassNotFoundException e) {
             log.error(e);
         }
-        log.info("Возвращен список комментариев");
+        log.info("Возвращен список книг");
         return items;
     }
 
     @Override
-    public boolean insert(Comment data) {
-        ArrayList<Comment> items = this.getAll();
+    public boolean insert(Book data) {
+        ArrayList<Book> items = this.getAll();
         if (!items.contains(data)) {
             items.add(data);
             try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
@@ -40,30 +40,29 @@ public class FileCommentDAO extends DAO<Comment, UUID> {
             } catch (IOException e) {
                 log.error(e);
             }
-            log.info("Добавлен комментарий с id=" + data.getId().toString());
+            log.info("Добавлена книга с id=" + data.getId().toString());
             return true;
-        } else {
-            log.info("Комментарий уже существует");
-            return false;
         }
+        log.info("Книга уже существует");
+        return false;
     }
 
     @Override
-    public Optional<Comment> getById(UUID id) {
-        ArrayList<Comment> items = this.getAll();
-        for (Comment item : items) {
+    public Optional<Book> getById(UUID id) {
+        ArrayList<Book> items = this.getAll();
+        for (Book item : items) {
             if (item.getId() == id) {
-                log.info("Возвращен комментарий с id=" + id.toString());
+                log.info("Возвращена книга с id=" + id.toString());
                 return Optional.of(item);
             }
         }
-        log.info("Комментарий с id=" + id.toString() + " не найден");
+        log.info("Книга с id=" + id.toString() + " не найдена");
         return Optional.empty();
     }
 
     @Override
-    public boolean update(UUID id, Comment data) {
-        ArrayList<Comment> items = this.getAll();
+    public boolean update(UUID id, Book data) {
+        ArrayList<Book> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
             if (items.get(i).getId() == id) {
                 items.set(i, data);
@@ -73,17 +72,17 @@ public class FileCommentDAO extends DAO<Comment, UUID> {
                 } catch (IOException e) {
                     log.error(e);
                 }
-                log.info("Комментарий с id=" + id.toString() + " изменен");
+                log.info("Книга с id=" + id.toString() + " изменена");
                 return true;
             }
         }
-        log.info("Комментарий с id=" + id.toString() + " не найден");
+        log.info("Книга с id=" + id.toString() + " не найдена");
         return false;
     }
 
     @Override
     public boolean delete(UUID id) {
-        ArrayList<Comment> items = this.getAll();
+        ArrayList<Book> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
             if (items.get(i).getId() == id) {
                 items.remove(i);
@@ -92,11 +91,11 @@ public class FileCommentDAO extends DAO<Comment, UUID> {
                 } catch (IOException e) {
                     log.error(e);
                 }
-                log.info("Комментарий с id=" + id.toString() + " удален");
+                log.info("Книга с id=" + id.toString() + " удалена");
                 return true;
             }
         }
-        log.info("Комментарий с id=" + id.toString() + " не найден");
+        log.info("Книга с id=" + id.toString() + " не найдена");
         return false;
     }
 }

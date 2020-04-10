@@ -1,38 +1,38 @@
 package by.epam.BookSpace.dao.file;
 
 import by.epam.BookSpace.dao.DAO;
-import by.epam.BookSpace.model.Book;
+import by.epam.BookSpace.model.Author;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
-public class FileBookDAO extends DAO<Book, UUID> {
-    public FileBookDAO() {
+public class AuthorFileDAO extends DAO<Author, UUID> {
+    public AuthorFileDAO() {
         super();
     }
 
-    public FileBookDAO(String path) {
+    public AuthorFileDAO(String path) {
         super(path);
-        log.info("Создан объект для работы с FileBookDAO");
+        log.info("Создан объект для работы с FileAuthorDAO");
     }
 
     @Override
-    public ArrayList<Book> getAll() {
-        ArrayList<Book> items = new ArrayList<>();
+    public ArrayList<Author> getAll() {
+        ArrayList<Author> items = new ArrayList<>();
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(path))) {
-            items = (ArrayList<Book>) input.readObject();
+            items = (ArrayList<Author>) input.readObject();
         } catch (IOException | ClassNotFoundException e) {
             log.error(e);
         }
-        log.info("Возвращен список книг");
+        log.info("Возвращен список авторов");
         return items;
     }
 
     @Override
-    public boolean insert(Book data) {
-        ArrayList<Book> items = this.getAll();
+    public boolean insert(Author data) {
+        ArrayList<Author> items = this.getAll();
         if (!items.contains(data)) {
             items.add(data);
             try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
@@ -40,30 +40,29 @@ public class FileBookDAO extends DAO<Book, UUID> {
             } catch (IOException e) {
                 log.error(e);
             }
-            log.info("Добавлена книга с id=" + data.getId().toString());
+            log.info("Добавлен автор с id=" + data.getId().toString());
             return true;
-        } else {
-            log.info("Книга уже существует");
-            return false;
         }
+        log.info("Автор уже существует");
+        return false;
     }
 
     @Override
-    public Optional<Book> getById(UUID id) {
-        ArrayList<Book> items = this.getAll();
-        for (Book item : items) {
+    public Optional<Author> getById(UUID id) {
+        ArrayList<Author> items = this.getAll();
+        for (Author item : items) {
             if (item.getId() == id) {
-                log.info("Возвращена книга с id=" + id.toString());
+                log.info("Возвращен автор с id=" + id.toString());
                 return Optional.of(item);
             }
         }
-        log.info("Книга с id=" + id.toString() + " не найдена");
+        log.info("Автор с id=" + id.toString() + " не найден");
         return Optional.empty();
     }
 
     @Override
-    public boolean update(UUID id, Book data) {
-        ArrayList<Book> items = this.getAll();
+    public boolean update(UUID id, Author data) {
+        ArrayList<Author> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
             if (items.get(i).getId() == id) {
                 items.set(i, data);
@@ -73,17 +72,17 @@ public class FileBookDAO extends DAO<Book, UUID> {
                 } catch (IOException e) {
                     log.error(e);
                 }
-                log.info("Книга с id=" + id.toString() + " изменена");
+                log.info("Автор с id=" + id.toString() + " изменен");
                 return true;
             }
         }
-        log.info("Книга с id=" + id.toString() + " не найдена");
+        log.info("Автор с id=" + id.toString() + " не найден");
         return false;
     }
 
     @Override
     public boolean delete(UUID id) {
-        ArrayList<Book> items = this.getAll();
+        ArrayList<Author> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
             if (items.get(i).getId() == id) {
                 items.remove(i);
@@ -92,11 +91,11 @@ public class FileBookDAO extends DAO<Book, UUID> {
                 } catch (IOException e) {
                     log.error(e);
                 }
-                log.info("Книга с id=" + id.toString() + " удалена");
+                log.info("Автор с id=" + id.toString() + " удален");
                 return true;
             }
         }
-        log.info("Книга с id=" + id.toString() + " не найдена");
+        log.info("Автор с id=" + id.toString() + " не найден");
         return false;
     }
 }

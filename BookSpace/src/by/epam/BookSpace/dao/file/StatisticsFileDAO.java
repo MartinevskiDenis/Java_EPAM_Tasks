@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
-public class FileStatisticsDAO extends DAO<Statistics, UUID> {
-    public FileStatisticsDAO() {
+public class StatisticsFileDAO extends DAO<Statistics, UUID> {
+    public StatisticsFileDAO() {
         super();
     }
 
-    public FileStatisticsDAO(String path) {
+    public StatisticsFileDAO(String path) {
         super(path);
         log.info("Создан объект для работы с FileStatisticsDAO");
     }
@@ -42,10 +42,9 @@ public class FileStatisticsDAO extends DAO<Statistics, UUID> {
             }
             log.info("Добавлена статистика для книги с id=" + data.getBookId().toString());
             return true;
-        } else {
-            log.info("Статистика для книги c id=" + data.getBookId().toString() + " уже существует");
-            return false;
         }
+        log.info("Статистика для книги c id=" + data.getBookId().toString() + " уже существует");
+        return false;
     }
 
     @Override
