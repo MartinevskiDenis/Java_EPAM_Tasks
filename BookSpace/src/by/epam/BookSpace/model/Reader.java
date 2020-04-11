@@ -3,20 +3,21 @@ package by.epam.BookSpace.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Reader extends User implements Serializable {
     private static final long serialVersionUID = -6346306515718030155L;
     private boolean isAuthor;
-    private ArrayList<Integer> finishedBooks;
-    private ArrayList<Integer> startedBooks;
-    private ArrayList<Integer> deferredBooks;
+    private ArrayList<UUID> finishedBooks;
+    private ArrayList<UUID> startedBooks;
+    private ArrayList<UUID> deferredBooks;
 
     public Reader() {
         super();
         this.isAuthor = false;
-        this.finishedBooks = new ArrayList<Integer>();
-        this.startedBooks = new ArrayList<Integer>();
-        this.deferredBooks = new ArrayList<Integer>();
+        this.finishedBooks = new ArrayList<UUID>();
+        this.startedBooks = new ArrayList<UUID>();
+        this.deferredBooks = new ArrayList<UUID>();
     }
 
     public boolean isAuthor() {
@@ -27,28 +28,28 @@ public class Reader extends User implements Serializable {
         isAuthor = author;
     }
 
-    public ArrayList<Integer> getFinishedBooks() {
+    public ArrayList<UUID> getFinishedBooks() {
         return finishedBooks;
     }
 
-    public void setFinishedBooks(ArrayList<Integer> finishedBooks) {
-        this.finishedBooks = new ArrayList<Integer>(finishedBooks);
+    public void setFinishedBooks(ArrayList<UUID> finishedBooks) {
+        this.finishedBooks = new ArrayList<UUID>(finishedBooks);
     }
 
-    public ArrayList<Integer> getStartedBooks() {
+    public ArrayList<UUID> getStartedBooks() {
         return startedBooks;
     }
 
-    public void setStartedBooks(ArrayList<Integer> startedBooks) {
-        this.startedBooks = new ArrayList<Integer>(startedBooks);
+    public void setStartedBooks(ArrayList<UUID> startedBooks) {
+        this.startedBooks = new ArrayList<UUID>(startedBooks);
     }
 
-    public ArrayList<Integer> getDeferredBooks() {
+    public ArrayList<UUID> getDeferredBooks() {
         return deferredBooks;
     }
 
-    public void setDeferredBooks(ArrayList<Integer> deferredBooks) {
-        this.deferredBooks = new ArrayList<Integer>(deferredBooks);
+    public void setDeferredBooks(ArrayList<UUID> deferredBooks) {
+        this.deferredBooks = new ArrayList<UUID>(deferredBooks);
     }
 
     @Override
