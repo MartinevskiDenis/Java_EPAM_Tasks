@@ -65,6 +65,7 @@ public class ReaderFileDAO extends DAO<Reader, String> {
         for (int i = 0; i < items.size(); ++i) {
             if (items.get(i).getLogin().equals(id)) {
                 items.set(i, data);
+                items.get(i).setLogin(id);
                 try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
                     output.writeObject(items);
                 } catch (IOException e) {

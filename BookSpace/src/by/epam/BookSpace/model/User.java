@@ -1,19 +1,20 @@
 package by.epam.BookSpace.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class User {
+public abstract class User implements Serializable, Cloneable {
+    private static final long serialVersionUID = -7347079179565262603L;
     protected String login;
     protected String email;
     protected String nickname;
     protected String password;
-    protected boolean isSubscriber;
 
     public User() {
         this.login = "";
         this.email = "";
         this.nickname = "";
-        this.isSubscriber = false;
+        this.password = "";
     }
 
     public String getLogin() {
@@ -40,14 +41,6 @@ public abstract class User {
         this.nickname = nickname;
     }
 
-    public boolean isSubscriber() {
-        return isSubscriber;
-    }
-
-    public void setSubscriber(boolean subscriber) {
-        isSubscriber = subscriber;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -63,7 +56,6 @@ public abstract class User {
         sb.append(", email=").append(email);
         sb.append(", nickname=").append(nickname);
         sb.append(", password=").append(password);
-        sb.append(", isSubscriber=").append(isSubscriber);
         sb.append('}');
         return sb.toString();
     }
@@ -73,8 +65,7 @@ public abstract class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return isSubscriber == user.isSubscriber &&
-                login.equals(user.login) &&
+        return login.equals(user.login) &&
                 email.equals(user.email) &&
                 nickname.equals(user.nickname) &&
                 password.equals(user.password);
@@ -82,6 +73,6 @@ public abstract class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, email, nickname, password, isSubscriber);
+        return Objects.hash(login, email, nickname, password);
     }
 }

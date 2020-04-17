@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Statistics implements Serializable {
-    private static final long serialVersionUID = -7647459242435415931L;
+public class Statistics implements Serializable, Cloneable {
+    private static final long serialVersionUID = -4669205312514534297L;
     private int numberViews;
     private int numberComments;
     private int numberLikes;
@@ -15,7 +15,7 @@ public class Statistics implements Serializable {
         this.numberViews = 0;
         this.numberComments = 0;
         this.numberLikes = 0;
-        this.bookId = UUID.fromString("");
+        this.bookId = null;
     }
 
     public int getNumberViews() {

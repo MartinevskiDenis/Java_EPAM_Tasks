@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Comment implements Serializable {
-    private static final long serialVersionUID = 4870765461497603797L;
+    private static final long serialVersionUID = 9005210832136607497L;
     private String userLogin;
     private String text;
     private UUID bookId;
@@ -14,7 +14,7 @@ public class Comment implements Serializable {
     public Comment() {
         this.userLogin = "";
         this.text = "";
-        this.bookId = UUID.fromString("");
+        this.bookId = null;
         this.id = UUID.randomUUID();
     }
 

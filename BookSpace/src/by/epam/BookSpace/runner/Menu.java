@@ -2,14 +2,13 @@ package by.epam.BookSpace.runner;
 
 import by.epam.BookSpace.model.Admin;
 import by.epam.BookSpace.model.Reader;
+import by.epam.BookSpace.runner.views.*;
 import by.epam.BookSpace.services.file.AdminFileService;
 import by.epam.BookSpace.services.file.ReaderFileService;
-import by.epam.BookSpace.utils.InputData;
 import by.epam.BookSpace.utils.Parser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -17,7 +16,7 @@ public class Menu {
     private final Scanner input = new Scanner(System.in);
 
     public void startMenu() {
-        String str;
+        String str = "";
         Integer choice;
         while (true) {
             boolean flag = false;
@@ -26,12 +25,13 @@ public class Menu {
             str = input.nextLine();
             choice = Parser.parseInteger(str);
             System.out.println();
+            UserView userView = new UserView();
             switch (choice) {
                 case 0:
                     flag = true;
                     break;
                 case 1:
-                    addUser();
+                    userView.add();
                     break;
                 case 2:
                     login();
@@ -47,28 +47,13 @@ public class Menu {
         }
     }
 
-    private void addUser() {
-        ReaderFileService readerFileService = new ReaderFileService();
-        AdminFileService adminFileService = new AdminFileService();
-        Reader reader = new Reader();
-        if (InputData.inputReader(input, reader)) {
-            if ((readerFileService.getById(reader.getLogin()) != null) || (adminFileService.getById(reader.getLogin()) != null)) {
-                System.out.println("Пользователь с таким логином уже существует");
-            } else {
-                readerFileService.insert(reader);
-            }
-        } else {
-            System.out.println("Некорректный данные");
-        }
-        System.out.println();
-    }
-
     private void login() {
-        String login, password;
+        String login = "", password = "";
         System.out.print("Введите логин: ");
         login = input.nextLine();
         System.out.print("Введите пароль: ");
         password = input.nextLine();
+        System.out.println();
         AdminFileService adminFileService = new AdminFileService();
         Admin admin = adminFileService.getById(login);
         if (admin != null) {
@@ -87,14 +72,14 @@ public class Menu {
                     System.out.println("Неверный пароль");
                 }
             } else {
-                System.out.println("Некорректный данные");
+                System.out.println("Некорректные данные");
             }
         }
         System.out.println();
     }
 
     private void adminMenu() {
-        String str;
+        String str = "";
         Integer choice;
         while (true) {
             boolean flag = false;
@@ -140,7 +125,7 @@ public class Menu {
     }
 
     private void adminMenuUsers() {
-        String str;
+        String str = "";
         Integer choice;
         while (true) {
             boolean flag = false;
@@ -149,21 +134,25 @@ public class Menu {
             str = input.nextLine();
             choice = Parser.parseInteger(str);
             System.out.println();
+            UserView userView = new UserView();
             switch (choice) {
                 case 0:
                     flag = true;
                     break;
                 case 1:
-                    printAllUsers();
+                    userView.printAll();
                     break;
                 case 2:
-                    addUser();
+                    userView.add();
                     break;
                 case 3:
-                    changeUser();
+                    userView.change();
                     break;
                 case 4:
-                    deleteUser();
+                    userView.delete();
+                    break;
+                case 5:
+                    userView.print();
                     break;
                 default:
                     System.out.println("Некорректный ввод");
@@ -176,55 +165,258 @@ public class Menu {
         }
     }
 
-    private void changeUser() {
-        String login;
-        System.out.print("Введите логин: ");
-        login = input.nextLine();
-        Reader newReader = new Reader();
-        System.out.println("Введите новые значения пользователя");
-        InputData.inputReader(input, newReader);
-        newReader.setLogin(login);
-        ReaderFileService readerFileService = new ReaderFileService();
-        if(readerFileService.update(login, newReader)
-        System.out.println();
-    }
-
-
-
-    private void printAllUsers() {
-        ReaderFileService readerFileService = new ReaderFileService();
-        ArrayList<Reader> items = readerFileService.getAll();
-        for(Reader reader : items){
-            System.out.println(reader);
-            System.out.println();
-        }
-        System.out.println();
-    }
-
     private void adminMenuAdmins() {
-    }
-
-    private void adminMenuBooks() {
-    }
-
-    private void adminMenuAuthors() {
-    }
-
-    private void adminMenuComments() {
-    }
-
-    private void adminMenuSeries() {
-    }
-
-    private void adminMenuStatistics() {
-    }
-
-    private void userMenu(String login) {
-        String str;
+        String str = "";
         Integer choice;
         while (true) {
             boolean flag = false;
-            printMenuUser();
+            MenuTexts.printAdminAdmins();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            AdminView adminView = new AdminView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    adminView.printAll();
+                    break;
+                case 2:
+                    adminView.add();
+                    break;
+                case 3:
+                    adminView.change();
+                    break;
+                case 4:
+                    adminView.delete();
+                    break;
+                case 5:
+                    adminView.print();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void adminMenuBooks() {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printAdminBooks();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            BookView bookView = new BookView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    bookView.printAll();
+                    break;
+                case 2:
+                    bookView.add();
+                    break;
+                case 3:
+                    bookView.change();
+                    break;
+                case 4:
+                    bookView.delete();
+                    break;
+                case 5:
+                    bookView.print();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void adminMenuAuthors() {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printAdminAuthors();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            AuthorView authorView = new AuthorView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    authorView.printAll();
+                    break;
+                case 2:
+                    authorView.add();
+                    break;
+                case 3:
+                    authorView.change();
+                    break;
+                case 4:
+                    authorView.delete();
+                    break;
+                case 5:
+                    authorView.print();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void adminMenuComments() {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printAdminComments();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            CommentView commentView = new CommentView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    commentView.printAll();
+                    break;
+                case 2:
+                    commentView.add();
+                    break;
+                case 3:
+                    commentView.change();
+                    break;
+                case 4:
+                    commentView.delete();
+                    break;
+                case 5:
+                    commentView.print();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void adminMenuSeries() {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printAdminSeries();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            SeriesView seriesView = new SeriesView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    seriesView.printAll();
+                    break;
+                case 2:
+                    seriesView.add();
+                    break;
+                case 3:
+                    seriesView.change();
+                    break;
+                case 4:
+                    seriesView.delete();
+                    break;
+                case 5:
+                    seriesView.print();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void adminMenuStatistics() {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printAdminStatistics();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            StatisticsView statisticsView = new StatisticsView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    statisticsView.printAll();
+                    break;
+                case 2:
+                    statisticsView.add();
+                    break;
+                case 3:
+                    statisticsView.change();
+                    break;
+                case 4:
+                    statisticsView.delete();
+                    break;
+                case 5:
+                    statisticsView.print();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void userMenu(String login) {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printUser();
             System.out.print("Ваш выбор: ");
             str = input.nextLine();
             choice = Parser.parseInteger(str);
@@ -232,6 +424,240 @@ public class Menu {
             switch (choice) {
                 case 0:
                     flag = true;
+                    break;
+                case 1:
+                    userMenuUser(login);
+                    break;
+                case 2:
+                    userMenuBooks();
+                    break;
+                case 3:
+                    userMenuAuthors();
+                    break;
+                case 4:
+                    userMenuComments(login);
+                    break;
+                case 5:
+                    userMenuSeries();
+                    break;
+                case 6:
+                    userMenuStatistics();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void userMenuStatistics() {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printUserSeries();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            StatisticsView statisticsView = new StatisticsView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    statisticsView.printAll();
+                    break;
+                case 2:
+                    statisticsView.print();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void userMenuSeries() {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printUserSeries();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            SeriesView seriesView = new SeriesView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    seriesView.printAll();
+                    break;
+                case 2:
+                    seriesView.print();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void userMenuComments(String login) {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printUserComments();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            CommentView commentView = new CommentView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    commentView.printAll();
+                    break;
+                case 2:
+                    commentView.printAllBookComments();
+                    break;
+                case 3:
+                    commentView.addCommentUser(login);
+                    break;
+                case 4:
+                    commentView.changeCommentUser(login);
+                    break;
+                case 5:
+                    commentView.deleteCommentUser(login);
+                    break;
+                case 6:
+                    commentView.print();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void userMenuAuthors() {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printUserAuthors();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            AuthorView authorView = new AuthorView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    authorView.printAll();
+                    break;
+                case 2:
+                    authorView.print();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void userMenuBooks() {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printUserBooks();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            BookView bookView = new BookView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    bookView.printAll();
+                    break;
+                case 2:
+                    bookView.printAllBooksAuthor();
+                    break;
+                case 3:
+                    bookView.printAllBooksGenre();
+                    break;
+                case 4:
+                    bookView.printAllBooksSeries();
+                    break;
+                case 5:
+                    bookView.print();
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    break;
+            }
+            System.out.println();
+            if (flag) {
+                break;
+            }
+        }
+    }
+
+    private void userMenuUser(String login) {
+        String str = "";
+        Integer choice;
+        while (true) {
+            boolean flag = false;
+            MenuTexts.printUserUser();
+            System.out.print("Ваш выбор: ");
+            str = input.nextLine();
+            choice = Parser.parseInteger(str);
+            System.out.println();
+            UserView userView = new UserView();
+            switch (choice) {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    userView.changeNickname(login);
+                    break;
+                case 2:
+                    userView.changeEmail(login);
+                    break;
+                case 3:
+                    userView.changePassword(login);
                     break;
                 default:
                     System.out.println("Некорректный ввод");

@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Reader extends User implements Serializable {
-    private static final long serialVersionUID = -6346306515718030155L;
+public class Reader extends User implements Serializable, Cloneable {
+    private static final long serialVersionUID = -1641873701860347305L;
     private boolean isAuthor;
+    protected boolean isSubscriber;
     private ArrayList<UUID> finishedBooks;
     private ArrayList<UUID> startedBooks;
     private ArrayList<UUID> deferredBooks;
@@ -15,6 +16,7 @@ public class Reader extends User implements Serializable {
     public Reader() {
         super();
         this.isAuthor = false;
+        this.isSubscriber=false;
         this.finishedBooks = new ArrayList<UUID>();
         this.startedBooks = new ArrayList<UUID>();
         this.deferredBooks = new ArrayList<UUID>();
@@ -26,6 +28,14 @@ public class Reader extends User implements Serializable {
 
     public void setAuthor(boolean author) {
         isAuthor = author;
+    }
+
+    public boolean isSubscriber() {
+        return isSubscriber;
+    }
+
+    public void setSubscriber(boolean subscriber) {
+        isSubscriber = subscriber;
     }
 
     public ArrayList<UUID> getFinishedBooks() {
@@ -57,6 +67,7 @@ public class Reader extends User implements Serializable {
         final StringBuilder sb = new StringBuilder("Reader{ ");
         sb.append(super.toString());
         sb.append("isAuthor=").append(isAuthor);
+        sb.append(", isSubscriber=").append(isSubscriber);
         sb.append(", finishedBooks=").append(finishedBooks);
         sb.append(", startedBooks=").append(startedBooks);
         sb.append(", deferredBooks=").append(deferredBooks);
@@ -71,6 +82,7 @@ public class Reader extends User implements Serializable {
         if (!super.equals(o)) return false;
         Reader reader = (Reader) o;
         return isAuthor == reader.isAuthor &&
+                isSubscriber == reader.isSubscriber &&
                 finishedBooks.equals(reader.finishedBooks) &&
                 startedBooks.equals(reader.startedBooks) &&
                 deferredBooks.equals(reader.deferredBooks);
@@ -78,6 +90,6 @@ public class Reader extends User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), isAuthor, finishedBooks, startedBooks, deferredBooks);
+        return Objects.hash(super.hashCode(), isAuthor, isSubscriber, finishedBooks, startedBooks, deferredBooks);
     }
 }

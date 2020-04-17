@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Series implements Serializable {
-    private static final long serialVersionUID = 2539941859058766563L;
+public class Series implements Serializable, Cloneable {
+    private static final long serialVersionUID = -272059427749322275L;
     private String name;
     private String description;
     private int countBooks;
@@ -16,7 +16,7 @@ public class Series implements Serializable {
         this.name = "";
         this.description = "";
         this.countBooks = 0;
-        this.authorId = UUID.fromString("");
+        this.authorId = null;
         this.id = UUID.randomUUID();
     }
 

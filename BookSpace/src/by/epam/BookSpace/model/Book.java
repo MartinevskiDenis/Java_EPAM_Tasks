@@ -6,10 +6,10 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Book implements Serializable {
-    private static final long serialVersionUID = -7694885217448990056L;
+public class Book implements Serializable, Cloneable {
+    private static final long serialVersionUID = -298459198193197060L;
     private String name;
-    ArrayList<UUID> authorsID;
+    private ArrayList<UUID> authorsID;
     private UUID seriesID;
     private ArrayList<String> genres;
     private Date releaseDate;
@@ -20,7 +20,7 @@ public class Book implements Serializable {
     public Book() {
         this.name = "";
         this.authorsID = new ArrayList<UUID>();
-        this.seriesID = UUID.fromString("");
+        this.seriesID = null;
         this.genres = new ArrayList<String>();
         this.releaseDate = new Date(0, 0, 0);
         this.cntSymbols = 0;

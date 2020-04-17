@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Author implements Serializable {
-    private static final long serialVersionUID = -3790954160275370998L;
+public class Author implements Serializable, Cloneable {
+    private static final long serialVersionUID = 6890768007406149982L;
     private String name;
     private String surname;
     private int rating;

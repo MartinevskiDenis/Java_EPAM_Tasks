@@ -51,7 +51,7 @@ public class BookFileDAO extends DAO<Book, UUID> {
     public Optional<Book> getById(UUID id) {
         ArrayList<Book> items = this.getAll();
         for (Book item : items) {
-            if (item.getId() == id) {
+            if (item.getId().equals(id)) {
                 log.info("Возвращена книга с id=" + id.toString());
                 return Optional.of(item);
             }
@@ -64,7 +64,7 @@ public class BookFileDAO extends DAO<Book, UUID> {
     public boolean update(UUID id, Book data) {
         ArrayList<Book> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getId() == id) {
+            if (items.get(i).getId().equals(id)) {
                 items.set(i, data);
                 items.get(i).setId(id);
                 try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
@@ -84,7 +84,7 @@ public class BookFileDAO extends DAO<Book, UUID> {
     public boolean delete(UUID id) {
         ArrayList<Book> items = this.getAll();
         for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getId() == id) {
+            if (items.get(i).getId().equals(id)) {
                 items.remove(i);
                 try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
                     output.writeObject(items);
