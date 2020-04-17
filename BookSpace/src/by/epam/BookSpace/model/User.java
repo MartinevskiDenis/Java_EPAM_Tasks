@@ -5,10 +5,10 @@ import java.util.Objects;
 
 public abstract class User implements Serializable, Cloneable {
     private static final long serialVersionUID = -7347079179565262603L;
-    protected String login;
-    protected String email;
-    protected String nickname;
-    protected String password;
+    private String login;
+    private String email;
+    private String nickname;
+    private String password;
 
     public User() {
         this.login = "";
