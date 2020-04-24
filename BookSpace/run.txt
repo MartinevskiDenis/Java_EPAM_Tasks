@@ -1,3 +1,0 @@
-find . -name "*.java" > sources.txt
-javac -cp lib/log4j-core-2.13.1.jar @sources.txt
-javac -cp lib/log4j-core-2.13.1.jar -d out @sources.txt
